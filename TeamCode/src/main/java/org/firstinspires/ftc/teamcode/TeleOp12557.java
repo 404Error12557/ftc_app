@@ -43,42 +43,36 @@ import com.qualcomm.robotcore.util.Range;
 import static android.os.SystemClock.sleep;
 
 /**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
+ * This file contains an TeleOpMode (Non-Linear) Code for Team 12557.
  *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all iterative OpModes contain.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
 //@Disabled
-public class DriveTeleOp extends OpMode
+public class TeleOp12557 extends OpMode
 {
+    /*
     // Declare OpMode members.
+    */
+
+    //Timer variable for displaying telemerty
     private ElapsedTime runtime = new ElapsedTime();
+
+    // Boolen variable for controling the speed of the Robot when left bumper switch is clicked.
     private boolean speedFlag = false;
 
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-    private DcMotor motorRF = null;
-    private DcMotor motorRB = null;
-    private DcMotor motorLF = null;
-    private DcMotor motorLB = null;
-    private DcMotor motorLift = null;
-    private DcMotor motorArm = null;
-    private DcMotor motorLift1 = null;
+    // Instance variable for DcMotors. This includes motor for 4 drivetrain motors, two lift motors and one arm motor
+    private DcMotor motorRF = null; // Drivetrain Right Front motor
+    private DcMotor motorRB = null; //Drivetrain Right Back motor
+    private DcMotor motorLF = null; //Drivetrain Left Frount motor
+    private DcMotor motorLB = null; //Drivetrain Left Back motor
+    private DcMotor motorLift = null; //Lift Motor
+    private DcMotor motorLift1 = null; // Lift Motor 1
+    private DcMotor motorArm = null; // Arm motor for tape measure
 
-    private CRServo liftServoRight= null;
-    private CRServo liftServoLeft= null;
-    private CRServo armServoRight= null;
-    private CRServo armServoLeft= null;
-    private Servo clawServo= null;
+    // Instance variable for Servos
+    private Servo clawServo= null; // Claw Servo
+
     private double linearPosition = 0.05;
     static final double INCREMENT   = 0.01;
 
@@ -97,14 +91,8 @@ public class DriveTeleOp extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        //SS leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        //SS rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
-        liftServoRight = hardwareMap.get(CRServo.class, "lift_servo_right");
-        liftServoLeft = hardwareMap.get(CRServo.class, "lift_servo_left");
 
-        armServoRight = hardwareMap.get(CRServo.class, "arm_servo_right");
-        armServoLeft = hardwareMap.get(CRServo.class, "arm_servo_left");
         clawServo = hardwareMap.get(Servo.class, "claw_servo");
         clawServo.scaleRange(0.4,0.8);
 
@@ -114,8 +102,7 @@ public class DriveTeleOp extends OpMode
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-      //SS  leftDrive.setDirection(DcMotor.Direction.REVERSE);
-      //SS  rightDrive.setDirection(DcMotor.Direction.FORWARD);
+
 
         motorLF  = hardwareMap.get(DcMotor.class, "mLF");
         motorRF = hardwareMap.get(DcMotor.class, "mRF");
@@ -126,10 +113,7 @@ public class DriveTeleOp extends OpMode
         motorLift1 =hardwareMap.get(DcMotor.class, "mLift1");
 
        motorLF.setDirection(DcMotor.Direction.REVERSE);
-        //motorLB.setDirection(DcMotor.Direction.REVERSE);
-        //motorRF.setDirection(DcMotor.Direction.FORWARD);
         motorRB.setDirection(DcMotor.Direction.REVERSE);
-       // liftServoLeft.setDirection(CRServo.Direction.REVERSE);
         motorArm.setDirection(DcMotor.Direction.REVERSE);
 
         motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//restsets the encoder
@@ -149,8 +133,7 @@ public class DriveTeleOp extends OpMode
 
     /*
      * Code to run ONCE when the driver hits PLAY
-     */
-    @Override
+q    @Override
     public void start() {
         runtime.reset();
     }
@@ -160,35 +143,10 @@ public class DriveTeleOp extends OpMode
      */
     @Override
     public void loop() {
-        // Setup a variable for each drive wheel to save power level for telemetry
-        double leftPower;
-        double rightPower;
-
-        // Choose to drive using either Tank Mode, or POV Mode
-        // Comment out the method that's not used.  The default below is POV.
-
-        // POV Mode uses left stick to go forward, and right stick to turn.
-        // - This uses basic math to combine motions and is easier to drive straight.
-       // double drive = -gamepad1.right_stick_y;
-        //double turn  =  gamepad1.right_stick_x;
-       // double turn  =  gamepad1.right_stick_x;
-
-       // leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-       // rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-        // Tank Mode uses one stick to control each wheel.
-        // - This requires no math, but it is hard to drive forward slowly and keep straight.
-        // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
-
-        // Send calculated power to wheels
-       // leftDrive.setPower(leftPower);
-        //rightDrive.setPower(rightPower);
-       //SS leftDrive.setPower(rightPower);
-       //SS rightDrive.setPower(leftPower);
-
-
-
+        
+        /*
+        // Macnum wheel code.
+        */
         double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
         double rightX = gamepad1.right_stick_x;
@@ -197,6 +155,7 @@ public class DriveTeleOp extends OpMode
         double v3 = r * Math.sin(robotAngle) + rightX;
         double v4 = r * Math.cos(robotAngle) - rightX;
 
+        //Code for controling the speed when left bumper switch is pressed
         if (gamepad1.left_bumper == true) {
             sleep(100);
             if (speedFlag == true)
@@ -229,9 +188,9 @@ public class DriveTeleOp extends OpMode
         motorLB.setPower(v3);
         motorRB.setPower(v4);
 
-
+        /*
         // Claw action
-
+        */
 
         if(gamepad1.right_bumper == true) {
             clawServo.setPosition(1);
@@ -240,54 +199,35 @@ public class DriveTeleOp extends OpMode
             clawServo.setPosition(0);
         }
 
-        /*if(gamepad1.x){
-            clawServo.setPosition(0.125);
-        }
-        //else{////////////////////////zaq
-        /////clawServo.setPosition(0);/
-        //}///////////////////////////
-        if (gamepad1.b){
-            clawServo.setPosition(0);
-        }*/
 
-
+        /*
         //Lift action
+        */
         if (gamepad1.y==true) {
 
-            //liftServoRight.setPower(1.0);
-            //liftServoLeft.setPower(-1.0);
             motorLift.setPower(1);
             motorLift1.setPower(1);
         }
         if (gamepad1.a==true){
-
-            //liftServoRight.setPower(-1.0);
-            //liftServoLeft.setPower(1.0);
             motorLift.setPower(-1);
             motorLift1.setPower(-1);
         }
         if (gamepad1.y==false && gamepad1.a==false){
-
-            //liftServoRight.setPower(-0.07);
-            //liftServoLeft.setPower(-0.07);
             motorLift.setPower(.01);
             motorLift1.setPower(.01);
         }
-        //Reset the motorLift position to Zero at the bottom of the lift
 
-
-
-
-
-
+        /*
         //Arm action
+        */
         if (gamepad1.dpad_up==true) {
             motorArm.setPower(1.0);
         }
         if (gamepad1.dpad_down==true){
                 motorArm.setPower(-1);
         }
-       /* if (gamepad1.dpad_down==true){
+       /* Do not remove this code
+       if (gamepad1.dpad_down==true){
             if(motorArm.getCurrentPosition()-50 > 250){
                 motorArm.setPower(-1);
             }
@@ -302,7 +242,7 @@ public class DriveTeleOp extends OpMode
             motorArm.setPower(0);
         }
 
-/*
+/*      Do not remove code.
         if(motorArm.getCurrentPosition() < 250){
             motorArm.setTargetPosition(250);
             motorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -317,7 +257,9 @@ public class DriveTeleOp extends OpMode
             while(gamepad1.start == true);
         }
 */
+        /*
         //Telemety
+        */
         // Show the elapsed game time and wheel power.
         telemetry.addData("Name: ", "Sarvesh Robot");
        // telemetry.addData("Gamepad Status : ", "x (%.2f)", gamepad1.left_stick_x );
@@ -341,12 +283,14 @@ public class DriveTeleOp extends OpMode
      */
     @Override
     public void stop() {
+        /*
+        Do not remove this code
         motorArm.setTargetPosition(10);
         motorArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorArm.setPower(-1);
        // motorArm.setPower(0);
         motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        */
 
     }
 
