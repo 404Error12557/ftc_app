@@ -173,17 +173,26 @@ q    @Override
      //   }
 
 
+<<<<<<< HEAD
         /*
         //Lift action
         */
       /*  if (gamepad1.y==true) {
+=======
+        //Lifts and lowers the arm up and down vertically
+        if (gamepad1.y==true) {
+>>>>>>> c05d997bf4fa6d5d782459c3a545ca4fd6d9154b
 
+            // when the y button on the game pad is pressed
             motorLift.setPower(1);
             motorLift1.setPower(1);
+            // lift the arm up by setting the motorlifts to 1 power
         }
         if (gamepad1.a==true){
+            // when the a button on the gamepad is pressed
             motorLift.setPower(-1);
             motorLift1.setPower(-1);
+            // lower the arm down by by setting the motorlifts to -1 power
         }
         if (gamepad1.y==false && gamepad1.a==false){
             motorLift.setPower(.01);
