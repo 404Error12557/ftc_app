@@ -1,31 +1,4 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+
 
 package org.firstinspires.ftc.teamcode;
 
@@ -66,12 +39,12 @@ public class TeleOp12557 extends OpMode
     private DcMotor motorRB = null; //Drivetrain Right Back motor
     private DcMotor motorLF = null; //Drivetrain Left Frount motor
     private DcMotor motorLB = null; //Drivetrain Left Back motor
-    private DcMotor motorLift = null; //Lift Motor
-    private DcMotor motorLift1 = null; // Lift Motor 1
-    private DcMotor motorArm = null; // Arm motor for tape measure
+   // private DcMotor motorLift = null; //Lift Motor
+    //private DcMotor motorLift1 = null; // Lift Motor 1
+    //private DcMotor motorArm = null; // Arm motor for tape measure
 
     // Instance variable for Servos
-    private Servo clawServo= null; // Claw Servo
+   // private Servo clawServo= null; // Claw Servo
 
     private double linearPosition = 0.05;
     static final double INCREMENT   = 0.01;
@@ -93,8 +66,8 @@ public class TeleOp12557 extends OpMode
         // step (using the FTC Robot Controller app on the phone).
 
 
-        clawServo = hardwareMap.get(Servo.class, "claw_servo");
-        clawServo.scaleRange(0.4,0.8);
+        //clawServo = hardwareMap.get(Servo.class, "claw_servo");
+        //clawServo.scaleRange(0.4,0.8);
 
 
 
@@ -108,16 +81,16 @@ public class TeleOp12557 extends OpMode
         motorRF = hardwareMap.get(DcMotor.class, "mRF");
         motorLB = hardwareMap.get(DcMotor.class, "mLB");
         motorRB = hardwareMap.get(DcMotor.class, "mRB");
-        motorLift = hardwareMap.get(DcMotor.class, "mLift");
-        motorArm = hardwareMap.get(DcMotor.class, "mArm");
-        motorLift1 =hardwareMap.get(DcMotor.class, "mLift1");
+      // motorLift = hardwareMap.get(DcMotor.class, "mLift");
+       // motorArm = hardwareMap.get(DcMotor.class, "mArm");
+       // motorLift1 =hardwareMap.get(DcMotor.class, "mLift1");
 
        motorLF.setDirection(DcMotor.Direction.REVERSE);
         motorRB.setDirection(DcMotor.Direction.REVERSE);
-        motorArm.setDirection(DcMotor.Direction.REVERSE);
+       // motorArm.setDirection(DcMotor.Direction.REVERSE);
 
-        motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//restsets the encoder
-        motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//runs to use the encoder
+        //motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//restsets the encoder
+        //motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//runs to use the encoder
 
 
         // Tell the driver that initialization is complete.
@@ -143,7 +116,7 @@ q    @Override
      */
     @Override
     public void loop() {
-        
+
         /*
         // Macnum wheel code.
         */
@@ -192,18 +165,18 @@ q    @Override
         // Claw action
         */
 
-        if(gamepad1.right_bumper == true) {
-            clawServo.setPosition(1);
-        }
-        else {
-            clawServo.setPosition(0);
-        }
+       // if(gamepad1.right_bumper == true) {
+      //      clawServo.setPosition(1);
+    //    }
+      //  else {
+      //     clawServo.setPosition(0);
+     //   }
 
 
         /*
         //Lift action
         */
-        if (gamepad1.y==true) {
+      /*  if (gamepad1.y==true) {
 
             motorLift.setPower(1);
             motorLift1.setPower(1);
@@ -216,16 +189,21 @@ q    @Override
             motorLift.setPower(.01);
             motorLift1.setPower(.01);
         }
-
+*/
         /*
         //Arm action
         */
-        if (gamepad1.dpad_up==true) {
+
+
+        /*if (gamepad1.dpad_up==true) {
             motorArm.setPower(1.0);
         }
         if (gamepad1.dpad_down==true){
                 motorArm.setPower(-1);
-        }
+        }*/
+
+
+
        /* Do not remove this code
        if (gamepad1.dpad_down==true){
             if(motorArm.getCurrentPosition()-50 > 250){
@@ -237,10 +215,12 @@ q    @Override
 
         }
         */
-        if (gamepad1.dpad_up==false && gamepad1.dpad_down==false){
+      /*  if (gamepad1.dpad_up==false && gamepad1.dpad_down==false){
 
             motorArm.setPower(0);
         }
+*/
+
 
 /*      Do not remove code.
         if(motorArm.getCurrentPosition() < 250){
@@ -272,10 +252,10 @@ q    @Override
         telemetry.addData("V2 :", v2);
         telemetry.addData("V3 :", v3);
         telemetry.addData("V4 :", v4);
-        telemetry.addData("motorLift position :", motorLift.getCurrentPosition());
-        telemetry.addData("motorLift1 Position :", motorLift1.getCurrentPosition());
-        telemetry.addData("motorArm:", motorArm.getCurrentPosition());
-        telemetry.addData("MotorArm reset:",motorArm.getCurrentPosition());
+        //telemetry.addData("motorLift position :", motorLift.getCurrentPosition());
+        //telemetry.addData("motorLift1 Position :", motorLift1.getCurrentPosition());
+        //telemetry.addData("motorArm:", motorArm.getCurrentPosition());
+        //telemetry.addData("MotorArm reset:",motorArm.getCurrentPosition());
     }
 
     /*
