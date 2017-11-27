@@ -39,12 +39,12 @@ public class TeleOp12557 extends OpMode
     private DcMotor motorRB = null; //Drivetrain Right Back motor
     private DcMotor motorLF = null; //Drivetrain Left Frount motor
     private DcMotor motorLB = null; //Drivetrain Left Back motor
-   // private DcMotor motorLift = null; //Lift Motor
-    //private DcMotor motorLift1 = null; // Lift Motor 1
-    //private DcMotor motorArm = null; // Arm motor for tape measure
+    private DcMotor motorLift = null; //Lift Motor
+    private DcMotor motorLift1 = null; // Lift Motor 1
+    private DcMotor motorArm = null; // Arm motor for tape measure
 
     // Instance variable for Servos
-   // private Servo clawServo= null; // Claw Servo
+    private Servo clawServo= null; // Claw Servo
 
     private double linearPosition = 0.05;
     static final double INCREMENT   = 0.01;
@@ -66,8 +66,8 @@ public class TeleOp12557 extends OpMode
         // step (using the FTC Robot Controller app on the phone).
 
 
-        //clawServo = hardwareMap.get(Servo.class, "claw_servo");
-        //clawServo.scaleRange(0.4,0.8);
+        clawServo = hardwareMap.get(Servo.class, "claw_servo");
+        clawServo.scaleRange(0.4,0.8);
 
 
 
@@ -81,16 +81,16 @@ public class TeleOp12557 extends OpMode
         motorRF = hardwareMap.get(DcMotor.class, "mRF");
         motorLB = hardwareMap.get(DcMotor.class, "mLB");
         motorRB = hardwareMap.get(DcMotor.class, "mRB");
-      // motorLift = hardwareMap.get(DcMotor.class, "mLift");
-       // motorArm = hardwareMap.get(DcMotor.class, "mArm");
-       // motorLift1 =hardwareMap.get(DcMotor.class, "mLift1");
+        motorLift = hardwareMap.get(DcMotor.class, "mLift");
+        motorArm = hardwareMap.get(DcMotor.class, "mArm");
+        motorLift1 =hardwareMap.get(DcMotor.class, "mLift1");
 
-       motorLF.setDirection(DcMotor.Direction.REVERSE);
+        motorLF.setDirection(DcMotor.Direction.REVERSE);
         motorRB.setDirection(DcMotor.Direction.REVERSE);
-       // motorArm.setDirection(DcMotor.Direction.REVERSE);
+        motorArm.setDirection(DcMotor.Direction.REVERSE);
 
-        //motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//restsets the encoder
-        //motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//runs to use the encoder
+        motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//restsets the encoder
+        motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//runs to use the encoder
 
 
         // Tell the driver that initialization is complete.
@@ -165,54 +165,40 @@ q    @Override
         // Claw action
         */
 
-       // if(gamepad1.right_bumper == true) {
-      //      clawServo.setPosition(1);
-    //    }
-      //  else {
-      //     clawServo.setPosition(0);
-     //   }
+        if(gamepad1.right_bumper == true) {
+            clawServo.setPosition(1);
+        }
+        else {
+            clawServo.setPosition(0);
+        }
 
 
-<<<<<<< HEAD
         /*
-        //Lift action
+        //Lift action fsdlkfjdslfj
         */
-      /*  if (gamepad1.y==true) {
-=======
-        //Lifts and lowers the arm up and down vertically
         if (gamepad1.y==true) {
->>>>>>> c05d997bf4fa6d5d782459c3a545ca4fd6d9154b
 
-            // when the y button on the game pad is pressed
             motorLift.setPower(1);
             motorLift1.setPower(1);
-            // lift the arm up by setting the motorlifts to 1 power
         }
         if (gamepad1.a==true){
-            // when the a button on the gamepad is pressed
             motorLift.setPower(-1);
             motorLift1.setPower(-1);
-            // lower the arm down by by setting the motorlifts to -1 power
         }
         if (gamepad1.y==false && gamepad1.a==false){
             motorLift.setPower(.01);
             motorLift1.setPower(.01);
         }
-*/
+
         /*
         //Arm action
         */
-
-
-        /*if (gamepad1.dpad_up==true) {
+        if (gamepad1.dpad_up==true) {
             motorArm.setPower(1.0);
         }
         if (gamepad1.dpad_down==true){
-                motorArm.setPower(-1);
-        }*/
-
-
-
+            motorArm.setPower(-1);
+        }
        /* Do not remove this code
        if (gamepad1.dpad_down==true){
             if(motorArm.getCurrentPosition()-50 > 250){
@@ -224,12 +210,10 @@ q    @Override
 
         }
         */
-      /*  if (gamepad1.dpad_up==false && gamepad1.dpad_down==false){
+        if (gamepad1.dpad_up==false && gamepad1.dpad_down==false){
 
             motorArm.setPower(0);
         }
-*/
-
 
 /*      Do not remove code.
         if(motorArm.getCurrentPosition() < 250){
@@ -251,20 +235,20 @@ q    @Override
         */
         // Show the elapsed game time and wheel power.
         telemetry.addData("Name: ", "Sarvesh Robot");
-       // telemetry.addData("Gamepad Status : ", "x (%.2f)", gamepad1.left_stick_x );
+        // telemetry.addData("Gamepad Status : ", "x (%.2f)", gamepad1.left_stick_x );
         //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-       // telemetry.addData("Status", "Run Time: " + runtime.toString());
-       // telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        // telemetry.addData("Status", "Run Time: " + runtime.toString());
+        // telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("speedFlag", speedFlag);
         telemetry.addData("Gamepad1.start:",gamepad1.start);
         telemetry.addData("V1 :", v1);
         telemetry.addData("V2 :", v2);
         telemetry.addData("V3 :", v3);
         telemetry.addData("V4 :", v4);
-        //telemetry.addData("motorLift position :", motorLift.getCurrentPosition());
-        //telemetry.addData("motorLift1 Position :", motorLift1.getCurrentPosition());
-        //telemetry.addData("motorArm:", motorArm.getCurrentPosition());
-        //telemetry.addData("MotorArm reset:",motorArm.getCurrentPosition());
+        telemetry.addData("motorLift position :", motorLift.getCurrentPosition());
+        telemetry.addData("motorLift1 Position :", motorLift1.getCurrentPosition());
+        telemetry.addData("motorArm:", motorArm.getCurrentPosition());
+        telemetry.addData("MotorArm reset:",motorArm.getCurrentPosition());
     }
 
     /*
@@ -283,4 +267,4 @@ q    @Override
 
     }
 
-    }
+}
