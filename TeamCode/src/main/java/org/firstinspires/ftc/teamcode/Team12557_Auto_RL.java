@@ -66,7 +66,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @Autonomous(name="Team12557_Auto RL", group="Pushbot")
-//@Disabled
+@Disabled
 public class Team12557_Auto_RL extends LinearOpMode {
 
     private DcMotor motorRF = null;

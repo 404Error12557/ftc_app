@@ -58,7 +58,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @Autonomous(name="Pushbot: Auto Drive To Line", group="Pushbot")
-//@Disabled
+@Disabled
 public class Team12557_Auto extends LinearOpMode {
 
     private DcMotor motorRF = null;

@@ -73,7 +73,8 @@ public class TeleOp12557 extends OpMode
         // Most robots need the motor on one side to be reversed to drive forward///////////
         motorLF.setDirection(DcMotor.Direction.REVERSE);
         motorRB.setDirection(DcMotor.Direction.REVERSE);
-        motorArm.setDirection(DcMotor.Direction.REVERSE);
+        //motorArm.setDirection(DcMotor.Direction.REVERSE);
+        motorLift1.setDirection(DcMotor.Direction.REVERSE);
 
         motorArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);//restsets the encoder
         motorArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//runs to use the encoder
