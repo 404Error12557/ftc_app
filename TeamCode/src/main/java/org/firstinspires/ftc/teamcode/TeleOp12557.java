@@ -18,7 +18,7 @@ import static android.os.SystemClock.sleep;
  */
 
 //This is a code for TeleOp mode - Driver control
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="Basic: Iterative OpMode", group="12557")
 //@Disabled
 public class TeleOp12557 extends OpMode
 {
