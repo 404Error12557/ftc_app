@@ -34,6 +34,7 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -49,9 +50,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
-@Autonomous(name="Blue Left - Auto", group="Autonomous")
+@Autonomous(name="Blue Right - Auto", group="Autonomous")
 //@Disabled
-public class BlueLeft_Auto12557 extends LinearOpMode {
+public class BlueRight_Auto12557 extends LinearOpMode {
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
@@ -178,7 +179,7 @@ public class BlueLeft_Auto12557 extends LinearOpMode {
         clawServo = hardwareMap.get(Servo.class, "claw_servo");
         clawServo.scaleRange(0.48,0.8);
 
-        colorRedServo = hardwareMap.get(Servo.class, "color_red_servo");
+     //   colorRedServo = hardwareMap.get(Servo.class, "color_red_servo");
         //colorRedServo.setDirection(Servo.Direction.REVERSE);
        // colorRedServo.scaleRange(0,0.6);
         colorBlueServo = hardwareMap.get(Servo.class, "color_blue_servo");
@@ -199,6 +200,7 @@ public class BlueLeft_Auto12557 extends LinearOpMode {
         motorLF.setDirection(DcMotor.Direction.REVERSE);
         motorRB.setDirection(DcMotor.Direction.REVERSE);
         motorLift1.setDirection(DcMotor.Direction.REVERSE);
+        colorBlueServo.setDirection(Servo.Direction.REVERSE);
         motorLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorLF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -250,13 +252,13 @@ public class BlueLeft_Auto12557 extends LinearOpMode {
                  * on which VuMark was visible. */
                 telemetry.addData("VuMark", "%s visible", vuMark);
                 if(vuMark ==RelicRecoveryVuMark.LEFT )
-                    direction = 7;
+                    direction = -7;
 
                 if(vuMark ==RelicRecoveryVuMark.CENTER )
                     direction = 0;
 
                 if(vuMark ==RelicRecoveryVuMark.RIGHT )
-                    direction = -7;
+                    direction = 7;
 
             }
             else {
@@ -273,7 +275,7 @@ public class BlueLeft_Auto12557 extends LinearOpMode {
         waitForStart();
 
 
-        colorRedServo.setPosition(.6);
+        colorBlueServo.setPosition(.7);
         sleep(2000);
         // Read the sensor
         if (colorSensor instanceof SwitchableLight) {
@@ -327,20 +329,21 @@ public class BlueLeft_Auto12557 extends LinearOpMode {
         telemetry.update();
         sleep(5000);
         if (!red) {
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
-            colorRedServo.setPosition(0);
-            sleep(2000);
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+            colorBlueServo.setPosition(0);
+            sleep(2000);
+            encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
         }
         else
         {
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
-            colorRedServo.setPosition(0);
-            sleep(2000);
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+            colorBlueServo.setPosition(0);
+            sleep(2000);
+            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT
+                    , 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
         }
 
-        colorRedServo.setPosition(0);
+        colorBlueServo.setPosition(0);
 
 
         // calling the encoderDrive to driver motors (macnum wheels, lift and arm motors).
