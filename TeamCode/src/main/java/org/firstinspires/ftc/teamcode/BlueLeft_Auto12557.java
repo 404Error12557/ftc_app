@@ -252,10 +252,10 @@ public class BlueLeft_Auto12557 extends LinearOpMode {
                  * on which VuMark was visible. */
                 telemetry.addData("VuMark", "%s visible", vuMark);
                 if(vuMark ==RelicRecoveryVuMark.LEFT )
-                    direction = -7;
+                    direction = -3;
 
                 if(vuMark ==RelicRecoveryVuMark.CENTER )
-                    direction = 0;
+                    direction = -2;
 
                 if(vuMark ==RelicRecoveryVuMark.RIGHT )
                     direction = 7;
@@ -424,10 +424,10 @@ public class BlueLeft_Auto12557 extends LinearOpMode {
                 newRightBackTarget = motorRB.getCurrentPosition() + (int) ((-distanceToTravel/ 4.2) * COUNTS_PER_INCH);
             }
             if (direction== DRIVE_TURN_RIGHT) {
-                newLeftFrontTarget = motorLF.getCurrentPosition() + (int) ((distanceToTravel / 4.2) * COUNTS_PER_INCH);
-                newLeftBackTarget = motorLB.getCurrentPosition() + (int) ((-distanceToTravel / 4.2) * COUNTS_PER_INCH);
-                newRightFrontTarget = motorRF.getCurrentPosition() + (int) ((-distanceToTravel / 4.2) * COUNTS_PER_INCH);
-                newRightBackTarget = motorRB.getCurrentPosition() + (int) ((distanceToTravel / 4.2) * COUNTS_PER_INCH);
+                newLeftFrontTarget = motorLF.getCurrentPosition() + (int) ((distanceToTravel / 4) * COUNTS_PER_INCH);
+                newLeftBackTarget = motorLB.getCurrentPosition() + (int) ((-distanceToTravel / 4) * COUNTS_PER_INCH);
+                newRightFrontTarget = motorRF.getCurrentPosition() + (int) ((-distanceToTravel / 4) * COUNTS_PER_INCH);
+                newRightBackTarget = motorRB.getCurrentPosition() + (int) ((distanceToTravel / 4) * COUNTS_PER_INCH);
             }
             if (direction== DRIVE_STRAFE_lEFT) {
                 newLeftFrontTarget = motorLF.getCurrentPosition() + (int) (-distanceToTravel * COUNTS_PER_INCH);

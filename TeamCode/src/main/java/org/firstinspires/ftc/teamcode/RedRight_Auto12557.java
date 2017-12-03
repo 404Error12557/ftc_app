@@ -256,7 +256,7 @@ public class RedRight_Auto12557 extends LinearOpMode {
                     direction = -1;
 
                 if(vuMark ==RelicRecoveryVuMark.RIGHT )
-                    direction = -7;
+                    direction = -4;
 
             }
             else {

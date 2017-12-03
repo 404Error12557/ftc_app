@@ -256,7 +256,7 @@ public class BlueRight_Auto12557 extends LinearOpMode {
                     direction = -7;
 
                 if(vuMark ==RelicRecoveryVuMark.CENTER )
-                    direction = 0;
+                    direction = -1;
 
                 if(vuMark ==RelicRecoveryVuMark.RIGHT )
                     direction = 7;
@@ -330,18 +330,18 @@ public class BlueRight_Auto12557 extends LinearOpMode {
         telemetry.update();
         //sleep(5000);
         if (!red) {
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
-            colorBlueServo.setPosition(0);
-            sleep(1000);
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
-        }
-        else
-        {
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
             colorBlueServo.setPosition(0);
             sleep(1000);
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT
                     , 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+        }
+        else
+        {
+            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+            colorBlueServo.setPosition(0);
+            sleep(1000);
+            encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
         }
 
         colorBlueServo.setPosition(0);
