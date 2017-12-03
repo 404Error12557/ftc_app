@@ -34,7 +34,6 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -50,9 +49,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
-@Autonomous(name="Blue Right - Auto", group="Autonomous")
+@Autonomous(name="Blue Left - Auto", group="Autonomous")
 //@Disabled
-public class BlueRight_Auto12557 extends LinearOpMode {
+public class BlueLeft_Auto12557 extends LinearOpMode {
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
@@ -130,7 +129,7 @@ public class BlueRight_Auto12557 extends LinearOpMode {
 
         // Get a reference to our sensor object.
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
-        boolean red = false;
+        boolean blue = false;
 
         // If possible, turn the light on in the beginning (it might already be on anyway,
         // we just make sure it is if we can).
@@ -309,7 +308,7 @@ public class BlueRight_Auto12557 extends LinearOpMode {
 
         if ( Color.red(color)>Color.blue(color))
         {
-            red = true;
+            blue = true;
             telemetry.addData("color: ", "Red");
         }
         else if(Color.blue(color)>Color.red(color)) {
@@ -319,7 +318,7 @@ public class BlueRight_Auto12557 extends LinearOpMode {
         {
             telemetry.addData("color: ", "Green");
         }
-        telemetry.addData("red: " , red);
+        telemetry.addData("red: " , blue);
 
  /*       telemetry.addLine("normalized color:  ")
                 .addData("a", "%02x", Color.alpha(color))
@@ -329,20 +328,22 @@ public class BlueRight_Auto12557 extends LinearOpMode {
                 */
         telemetry.update();
         //sleep(5000);
-        if (!red) {
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+
+        if(blue){
+            encoderDrive(DRIVE_SPEED,DRIVE_TURN_RIGHT,25,5.0);//turnright.3rdparameterisdegreeofturn.eg45degreeor90degree
             colorBlueServo.setPosition(0);
             sleep(1000);
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+            encoderDrive(DRIVE_SPEED,DRIVE_TURN_LEFT,25,5.0);//turnright.3rdparameterisdegreeofturn.eg45degreeor90degree
         }
         else
         {
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+            encoderDrive(DRIVE_SPEED,DRIVE_TURN_LEFT,25,5.0);//turnright.3rdparameterisdegreeofturn.eg45degreeor90degree
             colorBlueServo.setPosition(0);
             sleep(1000);
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT
-                    , 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+            encoderDrive(DRIVE_SPEED,DRIVE_TURN_RIGHT,25,5.0);//turnright.3rdparameterisdegreeofturn.eg45degreeor90degree
         }
+
+
 
         colorBlueServo.setPosition(0);
 
@@ -358,19 +359,20 @@ public class BlueRight_Auto12557 extends LinearOpMode {
          encoderDrive(DRIVE_SPEED, ARM_EXTEND, 5, 5.0 ); // not completed yet.
          encoderDrive(DRIVE_SPEED, LIFT_UP, 5, 5.0); // not completed yet.
        */
-        encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 35+direction, 5.0);  // S3: Forward
-        encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 90,  5.0);  // S3: right
-        encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 8,   5.0);  // S3: Forward
-        //Open the claw to release the glyph
+        encoderDrive(DRIVE_SPEED,DRIVE_FORWARD,24,5.0);//S3:Forward
+        encoderDrive(DRIVE_SPEED,DRIVE_STRAFE_RIGHT,19+direction,5.0);//S3:right
+        encoderDrive(DRIVE_SPEED,DRIVE_FORWARD,10,5.0);//S3:Forward
+//Opentheclawtoreleasetheglyph
         clawServo.setPosition(0);
-        sleep(1000);   // optional pause after each move
-        encoderDrive(DRIVE_SPEED, DRIVE_BACKWORD, 8, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
-         // sleep(10000);     // pause for servos to move
+        sleep(1000);//optionalpauseaftereachmove
+        encoderDrive(DRIVE_SPEED,DRIVE_BACKWORD,6,5.0);//backwards.3rdparameterishowmanyinchesyouwantrobottomovebackword.
         clawServo.setPosition(1);
         encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 6, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
         encoderDrive(DRIVE_SPEED, DRIVE_BACKWORD, 6, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
         clawServo.setPosition(0);
 
+
+        // sleep(10000);     // pause for servos to move
 
 /*
         telemetry.addLine("Complete");

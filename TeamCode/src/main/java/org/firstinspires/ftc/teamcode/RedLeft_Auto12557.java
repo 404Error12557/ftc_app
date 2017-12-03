@@ -181,7 +181,7 @@ public class RedLeft_Auto12557 extends LinearOpMode {
         int i =0;
 
         clawServo = hardwareMap.get(Servo.class, "claw_servo");
-        clawServo.scaleRange(0.48,0.8);
+        clawServo.scaleRange(0.42,0.8);
 
         colorRedServo = hardwareMap.get(Servo.class, "color_red_servo");
         //colorRedServo.setDirection(Servo.Direction.REVERSE);
@@ -278,7 +278,7 @@ public class RedLeft_Auto12557 extends LinearOpMode {
         waitForStart();
 
 
-        colorRedServo.setPosition(.6);
+        colorRedServo.setPosition(.7);
         sleep(2000);
         // Read the sensor
         if (colorSensor instanceof SwitchableLight) {
@@ -330,18 +330,18 @@ public class RedLeft_Auto12557 extends LinearOpMode {
                 .addData("b", "%02x", Color.blue(color));
                 */
         telemetry.update();
-        sleep(5000);
+        //sleep(5000);
         if (!red) {
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
             colorRedServo.setPosition(0);
-            sleep(2000);
+            sleep(1000);
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
         }
         else
         {
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
             colorRedServo.setPosition(0);
-            sleep(2000);
+            sleep(1000);
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
         }
 
@@ -364,8 +364,12 @@ public class RedLeft_Auto12557 extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 8,   5.0);  // S3: Forward
         //Open the claw to release the glyph
         clawServo.setPosition(0);
-        sleep(600);   // optional pause after each move
+        sleep(1000);   // optional pause after each move
         encoderDrive(DRIVE_SPEED, DRIVE_BACKWORD, 6, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
+        clawServo.setPosition(1);
+        encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 6, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
+        encoderDrive(DRIVE_SPEED, DRIVE_BACKWORD, 6, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
+        clawServo.setPosition(0);
 
        // sleep(10000);     // pause for servos to move
 

@@ -34,7 +34,6 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -50,9 +49,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 
-@Autonomous(name="Blue Right - Auto", group="Autonomous")
+@Autonomous(name="Red Right - Auto", group="Autonomous")
 //@Disabled
-public class BlueRight_Auto12557 extends LinearOpMode {
+public class RedRight_Auto12557 extends LinearOpMode {
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
@@ -179,7 +178,7 @@ public class BlueRight_Auto12557 extends LinearOpMode {
         clawServo = hardwareMap.get(Servo.class, "claw_servo");
         clawServo.scaleRange(0.42,0.8);
 
-     //   colorRedServo = hardwareMap.get(Servo.class, "color_red_servo");
+        colorRedServo = hardwareMap.get(Servo.class, "color_red_servo");
         //colorRedServo.setDirection(Servo.Direction.REVERSE);
        // colorRedServo.scaleRange(0,0.6);
         colorBlueServo = hardwareMap.get(Servo.class, "color_blue_servo");
@@ -200,7 +199,6 @@ public class BlueRight_Auto12557 extends LinearOpMode {
         motorLF.setDirection(DcMotor.Direction.REVERSE);
         motorRB.setDirection(DcMotor.Direction.REVERSE);
         motorLift1.setDirection(DcMotor.Direction.REVERSE);
-        colorBlueServo.setDirection(Servo.Direction.REVERSE);
         motorLift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorLF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -225,7 +223,6 @@ public class BlueRight_Auto12557 extends LinearOpMode {
 
         //Close the claw to hold glyph when init button is pressed but before play button is pressed.
         clawServo.setPosition(1);
-        colorBlueServo.setPosition(.3);
         relicTrackables.activate();
 
             /**
@@ -253,13 +250,13 @@ public class BlueRight_Auto12557 extends LinearOpMode {
                  * on which VuMark was visible. */
                 telemetry.addData("VuMark", "%s visible", vuMark);
                 if(vuMark ==RelicRecoveryVuMark.LEFT )
-                    direction = -7;
+                    direction = 7;
 
                 if(vuMark ==RelicRecoveryVuMark.CENTER )
-                    direction = 0;
+                    direction = -1;
 
                 if(vuMark ==RelicRecoveryVuMark.RIGHT )
-                    direction = 7;
+                    direction = -7;
 
             }
             else {
@@ -276,7 +273,7 @@ public class BlueRight_Auto12557 extends LinearOpMode {
         waitForStart();
 
 
-        colorBlueServo.setPosition(.7);
+        colorRedServo.setPosition(.7);
         sleep(2000);
         // Read the sensor
         if (colorSensor instanceof SwitchableLight) {
@@ -331,20 +328,19 @@ public class BlueRight_Auto12557 extends LinearOpMode {
         //sleep(5000);
         if (!red) {
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
-            colorBlueServo.setPosition(0);
+            colorRedServo.setPosition(0);
             sleep(1000);
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
         }
         else
         {
             encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
-            colorBlueServo.setPosition(0);
+            colorRedServo.setPosition(0);
             sleep(1000);
-            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT
-                    , 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
+            encoderDrive(DRIVE_SPEED, DRIVE_TURN_RIGHT, 30, 5.0);  // turn right. 3rd parameter is degree of turn. eg 45degree or 90degree
         }
 
-        colorBlueServo.setPosition(0);
+        colorRedServo.setPosition(0);
 
 
         // calling the encoderDrive to driver motors (macnum wheels, lift and arm motors).
@@ -358,19 +354,19 @@ public class BlueRight_Auto12557 extends LinearOpMode {
          encoderDrive(DRIVE_SPEED, ARM_EXTEND, 5, 5.0 ); // not completed yet.
          encoderDrive(DRIVE_SPEED, LIFT_UP, 5, 5.0); // not completed yet.
        */
-        encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 35+direction, 5.0);  // S3: Forward
-        encoderDrive(DRIVE_SPEED, DRIVE_TURN_LEFT, 90,  5.0);  // S3: right
-        encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 8,   5.0);  // S3: Forward
-        //Open the claw to release the glyph
+        encoderDrive(DRIVE_SPEED,DRIVE_FORWARD,24,5.0);//S3:Forward
+        encoderDrive(DRIVE_SPEED,DRIVE_STRAFE_lEFT,19+direction,5.0);//S3:right
+        encoderDrive(DRIVE_SPEED,DRIVE_FORWARD,12,5.0);//S3:Forward
+//Opentheclawtoreleasetheglyph
         clawServo.setPosition(0);
-        sleep(1000);   // optional pause after each move
-        encoderDrive(DRIVE_SPEED, DRIVE_BACKWORD, 8, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
-         // sleep(10000);     // pause for servos to move
+        sleep(1000);//optionalpauseaftereachmove
+        encoderDrive(DRIVE_SPEED,DRIVE_BACKWORD,6,5.0);//backwards.3rdparameterishowmanyinchesyouwantrobottomovebackword.
         clawServo.setPosition(1);
         encoderDrive(DRIVE_SPEED, DRIVE_FORWARD, 6, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
         encoderDrive(DRIVE_SPEED, DRIVE_BACKWORD, 6, 5.0);  // backwards. 3rd parameter is how many inches you want robot to move backword.
         clawServo.setPosition(0);
 
+        // sleep(10000);     // pause for servos to move
 
 /*
         telemetry.addLine("Complete");
